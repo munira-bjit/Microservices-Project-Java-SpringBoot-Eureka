@@ -7,6 +7,7 @@ public class Department {
     private Long id;
     private String name;
     private List<Employee> employees = new ArrayList<>();
+    private List<Course> courses = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -32,6 +33,14 @@ public class Department {
         this.employees = employees;
     }
 
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
     public Department(Long id, String name) {
         this.id = id;
         this.name = name;
@@ -46,6 +55,7 @@ public class Department {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", employees=" + employees +
+                ", courses=" + courses +
                 '}';
     }
 }

@@ -1,5 +1,6 @@
 package com.munira.departmentservice.config;
 
+import com.munira.departmentservice.client.CourseClient;
 import com.munira.departmentservice.client.EmployeeClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -31,5 +32,22 @@ public class WebClientConfig {
                 .builder(WebClientAdapter.forClient(employeeWebClient()))
                 .build();
         return httpServiceProxyFactory.createClient(EmployeeClient.class);
+    }
+
+    @Bean
+    public WebClient courseWebClient(){
+        return WebClient.builder()
+                .baseUrl("http://course-service")
+                .filter(filterFunction)
+                .build();
+    }
+
+    @Bean
+    public CourseClient courseClient(){
+        HttpServiceProxyFactory httpServiceProxyFactory
+                = HttpServiceProxyFactory
+                .builder(WebClientAdapter.forClient(courseWebClient()))
+                .build();
+        return httpServiceProxyFactory.createClient(CourseClient.class);
     }
 }

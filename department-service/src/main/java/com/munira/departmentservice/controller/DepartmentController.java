@@ -1,5 +1,6 @@
 package com.munira.departmentservice.controller;
 
+import com.munira.departmentservice.client.CourseClient;
 import com.munira.departmentservice.client.EmployeeClient;
 import com.munira.departmentservice.model.Department;
 import com.munira.departmentservice.repository.DepartmentRepository;
@@ -19,6 +20,9 @@ public class DepartmentController {
     @Autowired
     private EmployeeClient employeeClient;
 
+    @Autowired
+    private CourseClient courseClient;
+
     @PostMapping("/add")
     public Department add(@RequestBody Department department) {
         return departmentRepository.addDepartment(department);
@@ -36,6 +40,17 @@ public class DepartmentController {
         departments.forEach(department ->
                 department.setEmployees(
                         employeeClient.findByDepartment(
+                                department.getId())));
+        return departments;
+    }
+
+    @GetMapping("/with-courses")
+    public List<Department> findAllWithCourses() {
+        List<Department> departments =
+                departmentRepository.findAll();
+        departments.forEach(department ->
+                department.setCourses(
+                        courseClient.findByDepartment(
                                 department.getId())));
         return departments;
     }
