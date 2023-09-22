@@ -3,6 +3,3 @@ spring:
     name: course-service
   config:
     import: "optional:configserver:http://localhost:8088"
-
-
-
