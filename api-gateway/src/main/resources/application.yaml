@@ -22,3 +22,7 @@ spring:
           uri: lb://department-service
           predicates:
             - Path=/department/**
+        - id: course-service
+          uri: lb://course-service
+          predicates:
+            - Path=/course/**
